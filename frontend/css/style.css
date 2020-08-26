@@ -1,0 +1,31 @@
+.form {
+  padding: 15px;
+  border: black;
+  box-shadow: black;
+}
+
+.jumbotron {
+  background-color: #d41216;
+  color: white;
+}
+
+.initialText {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: larger;
+}
+
+/* .outer {
+  border-color: black;
+} */
+
+div.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 5px;
+}
+
+.bgimage {
+  background-image: url("../certificate.jpg");
+}
+footer {
+  font-weight: bold;
+}

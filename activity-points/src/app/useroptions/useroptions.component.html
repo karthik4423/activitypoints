@@ -1,0 +1,364 @@
+<app-header></app-header>
+<div class="wrapper">
+  <div class="useroption" fxLayout="column" fxLayoutGap="32px">
+    <mat-card class="card">
+      <p class="card-header">What can you do?</p>
+      <mat-card-content class="card-content-wrapper">
+        <mat-accordion>
+          <!-- Expansion panel for upload-->
+          <mat-expansion-panel class="expansion-panel">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon aria-hidden="false" aria-label="Upload icon"
+                  >publish</mat-icon
+                >
+              </mat-panel-title>
+              <mat-panel-description>
+                Upload new certificates for verification
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="forms">
+              <label class="label-style">Muthoot ID : </label> <br />
+              <input
+                type="text"
+                class="field-style"
+                [(ngModel)]="muthootID"
+                (change)="upperCase()"
+              />
+              <br />
+              <label class="label-style"
+                >Select Certificate <span class="grey-text">(.pdf)</span> :
+              </label>
+              <br />
+              <input
+                type="file"
+                class="field-style"
+                (change)="onChange()"
+                accept=".pdf"
+                #fileUpload
+                id="fileUpload"
+                name="fileUpload"
+              />
+              <!-- id="fileInput" -->
+              <div *ngIf="fileName.length > 4 && fileName.slice(-3) != 'pdf'">
+                {{ fileSnackBar() }}
+              </div>
+              <br />
+              <div
+                fxLayout="row wrap"
+                fxLayoutGap="32px"
+                fxLayoutAlign="flex-start"
+              >
+                <mat-form-field class="full-width">
+                  <label class="category-style">Certificate Category</label>
+                  <input
+                    type="text"
+                    aria-label="Number"
+                    matInput
+                    [formControl]="myControl"
+                    [matAutocomplete]="auto"
+                    [(ngModel)]="category"
+                    class="category-style"
+                    required
+                  />
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option
+                      id="categoryOptions"
+                      *ngFor="let option of filteredOptions | async"
+                      [value]="option"
+                    >
+                      {{ option }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+                <!-- <button (click)="clearSearch()">
+                  <mat-icon aria-hidden="false" aria-label="Upload icon"
+                    >clear</mat-icon
+                  >
+                </button> -->
+              </div>
+              <br />
+
+              <!-- The following div is only shown if the categories are 1 or 2 -->
+              <div
+                *ngIf="
+                  options.indexOf(category) == 1 ||
+                  options.indexOf(category) == 2
+                "
+              >
+                <label id="level-radio-group-label">Achievement level</label>
+                <mat-radio-group
+                  aria-labelledby="level-radio-group-label"
+                  class="radio-group"
+                  [(ngModel)]="cat12data.level"
+                >
+                  <mat-radio-button
+                    class="radio-button"
+                    *ngFor="let lev of levels"
+                    [value]="lev"
+                  >
+                    {{ lev }}
+                  </mat-radio-button>
+                </mat-radio-group>
+                <label id="prize-radio-group-label"
+                  >Prize (if applicable)</label
+                >
+                <mat-radio-group
+                  aria-labelledby="prize-radio-group-label"
+                  class="radio-group"
+                  [(ngModel)]="cat12data.prize"
+                >
+                  <mat-radio-button
+                    class="radio-button"
+                    *ngFor="let pri of prizes"
+                    [value]="pri"
+                  >
+                    {{ pri }}
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+
+              <!-- This div is only shown if the category is 3 -- Professional self initiatives-->
+
+              <div *ngIf="options.indexOf(category) == 3">
+                <label id="cat3-radio-group-label">Specification</label>
+                <mat-radio-group
+                  aria-labelledby="cat3-radio-group-label"
+                  class="radio-group"
+                  [(ngModel)]="cat3data.specification"
+                >
+                  <mat-radio-button
+                    class="radio-button"
+                    *ngFor="let spec of category3"
+                    [value]="spec"
+                  >
+                    {{ spec }}
+                  </mat-radio-button>
+                  <!-- {{ assignSpec(cat3Specification) }} -->
+                </mat-radio-group>
+                <!-- Generates the level list for the first two classes. I'm sure I can do this some other way instead of repeating the code.-->
+                <div
+                  *ngIf="
+                    category3.indexOf(cat3data.specification) == 0 ||
+                      category3.indexOf(cat3data.specification) == 1;
+                    else levelset
+                  "
+                >
+                  <label id="level-radio-group-label">Achievement level</label>
+                  <mat-radio-group
+                    aria-labelledby="level-radio-group-label"
+                    class="radio-group"
+                    [(ngModel)]="cat3data.level"
+                  >
+                    <mat-radio-button
+                      class="radio-button"
+                      *ngFor="let lev of levels"
+                      [value]="lev"
+                    >
+                      {{ lev }}
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <ng-template #levelset>{{
+                  cat3data.setLevel("N/A")
+                }}</ng-template>
+              </div>
+
+              <!-- This div is only shown if the category is 5 -- Entrepreneurship -->
+
+              <div *ngIf="options.indexOf(category) == 5">
+                <label id="cat5-radio-group-label">Specification</label>
+                <mat-radio-group
+                  aria-labelledby="cat5-radio-group-label"
+                  class="radio-group"
+                  [(ngModel)]="cat5data.specification"
+                >
+                  <mat-radio-button
+                    class="radio-button"
+                    *ngFor="let spec of category5"
+                    [value]="spec"
+                  >
+                    {{ spec }}
+                  </mat-radio-button>
+                </mat-radio-group>
+                <!-- {{ assignSpec(cat5Specification) }} -->
+              </div>
+
+              <!-- This div is only shown if the category is 5 -- Leadership and Management -->
+              <div *ngIf="options.indexOf(category) == 6">
+                <label id="cat6-radio-group-label">Specification</label>
+                <mat-radio-group
+                  aria-labelledby="cat6-radio-group-label"
+                  class="radio-group"
+                  [(ngModel)]="cat6data.specification"
+                >
+                  <mat-radio-button
+                    class="radio-button"
+                    *ngFor="let spec of category6"
+                    [value]="spec"
+                  >
+                    {{ spec }}
+                  </mat-radio-button>
+                </mat-radio-group>
+                <!-- {{ assignSpec(cat6Specification) }} -->
+                <div
+                  *ngIf="
+                    category6.indexOf(cat6data.specification) < 5;
+                    else studentRep
+                  "
+                >
+                  <label id="cat6-radio-group-label">Role</label>
+                  <mat-radio-group
+                    aria-labelledby="cat6-role-radio-group-label"
+                    class="radio-group"
+                    [(ngModel)]="cat6data.role"
+                  >
+                    <mat-radio-button
+                      class="radio-button"
+                      *ngFor="
+                        let role of [
+                          'Core Coordinator',
+                          'Sub Coordinator',
+                          'Volunteer'
+                        ]
+                      "
+                      [value]="role"
+                    >
+                      {{ role }}
+                    </mat-radio-button>
+                  </mat-radio-group>
+                  <!-- {{ assignRole(cat6RoleSpecification) }} -->
+                </div>
+                <ng-template #studentRep
+                  ><label id="cat6-radio-group-label">Role</label>
+                  <mat-radio-group
+                    aria-labelledby="cat6-reprole-radio-group-label"
+                    class="radio-group"
+                    [(ngModel)]="cat6data.role"
+                  >
+                    <mat-radio-button
+                      class="radio-button"
+                      *ngFor="let role of ['Chairman', 'Secretary', 'Others']"
+                      [value]="role"
+                    >
+                      {{ role }}
+                    </mat-radio-button>
+                  </mat-radio-group></ng-template
+                >
+                <!-- {{ assignRole(cat6RoleSpecification) }} -->
+              </div>
+
+              <!-- Final Display of Details -->
+
+              <div id="finalDetails" style="align-items: center;">
+                <div class="field-style center">
+                  <span class="confirmation-style">Muthoot ID : </span
+                  >{{ muthootIDUpper }}
+                  <br />
+                  <span class="confirmation-style">Category : </span
+                  >{{ category }}
+                  <br />
+                  <span class="confirmation-style">Certificate Name : </span
+                  >{{ fileName }}
+                  <br />
+                  <div
+                    *ngIf="
+                      options.indexOf(category) == 1 ||
+                      options.indexOf(category) == 2
+                    "
+                  >
+                    <span class="confirmation-style">Level : </span
+                    >{{ cat12data.level }}
+                    <br />
+                    <span class="confirmation-style">Prize : </span
+                    >{{ cat12data.prize }}
+                    <br />
+                  </div>
+
+                  <div *ngIf="options.indexOf(category) == 3">
+                    <span class="confirmation-style">Specification : </span
+                    >{{ cat3data.specification }} <br />
+                    <span class="confirmation-style">Level : </span
+                    >{{ cat3data.level }}
+                    <br />
+                  </div>
+                  <div *ngIf="options.indexOf(category) == 5">
+                    <span class="confirmation-style">Specification : </span
+                    >{{ cat5data.specification }} <br />
+                  </div>
+                  <div *ngIf="options.indexOf(category) == 6">
+                    <span class="confirmation-style">Specification : </span
+                    >{{ cat6data.specification }}
+                    <br />
+                    <span class="confirmation-style">Role : </span
+                    >{{ cat6data.role }} <br />
+                  </div>
+                </div>
+              </div>
+
+              <button
+                mat-raised-button
+                color="primary"
+                class="button-style"
+                (click)="onClick()"
+              >
+                Upload
+              </button>
+            </div>
+          </mat-expansion-panel>
+
+          <!-- Expansion panel for status-->
+
+          <mat-expansion-panel class="expansion-panel">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon aria-hidden="false" aria-label="Status icon"
+                  >verified</mat-icon
+                >
+              </mat-panel-title>
+              <mat-panel-description>
+                Check your Activity Points and Certificate Status
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <div class="forms">
+              <label class="label-style">Muthoot ID : </label>
+              <input type="text" class="field-style" />
+              <br />
+              <button mat-raised-button color="primary" class="button-style">
+                Get Status in Mail
+              </button>
+              <button mat-raised-button color="primary" class="button-style">
+                Get Status printed in the page
+              </button>
+            </div>
+          </mat-expansion-panel>
+
+          <!-- Expansion panel for download-->
+
+          <mat-expansion-panel class="expansion-panel">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon aria-hidden="false" aria-label="Download icon"
+                  >get_app</mat-icon
+                >
+              </mat-panel-title>
+              <mat-panel-description>
+                Download approved certificates
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <div class="forms">
+              <label class="label-style">Muthoot ID : </label>
+              <input type="text" class="field-style" />
+              <br />
+              <button mat-raised-button color="primary" class="button-style">
+                Send Certificates to Mail
+              </button>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-card-content></mat-card
+    >
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<app-header> </app-header>
+<div class="container" fxLayout="column" fxLayoutGap="32px">
+  <p>Howdy, {{ facultyName }}</p>
+  <mat-card class="card"
+    ><h1 class="card-header">Pending Requests</h1>
+    <mat-card-content class="card-content-wrapper">
+      <div *ngFor="let req of pendingRequests">
+        <mat-card class="card">
+          <p>{{ req.name }}</p>
+          <mat-card-content class="card-content-wrapper">
+            {{ req.id }}
+            {{ req.category }}
+            {{ req.certificate }}
+            {{ req.currentpoints }}
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-card-content></mat-card
+  >
+  <mat-card class="card"
+    ><h1 class="card-header">Status of all Students</h1>
+    <mat-card-content class="card-content-wrapper">
+      <div *ngFor="let req of pendingRequests">
+        <mat-card class="card">
+          <p>{{ req.name }}</p>
+          <mat-card-content class="card-content-wrapper">
+            {{ req.id }}
+            {{ req.category }}
+            {{ req.certificate }}
+            {{ req.currentpoints }}
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-card-content></mat-card
+  >
+</div>

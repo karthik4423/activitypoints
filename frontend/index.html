@@ -1,0 +1,180 @@
+<html>
+  <head>
+    <title>Activity Points Portal</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./font-awesome/css/font-awesome.min.css" />
+  </head>
+  <body class="bgimage">
+    <header class="jumbotron">
+      <p class="display-2 text-center">Activity Points Portal</p>
+      <p>Faculty? Login Here.</p>
+    </header>
+    <div class="container">
+      <div class="row text-center initialText">
+        <p class="col-12">Welcome to the Activity Points Portal.</p>
+        <p class="col-12">
+          Use this portal to upload new certificates, check your points and
+          download your approved certificates.
+        </p>
+      </div>
+      <div class="row justify-content-center">
+        <div class="card col outer">
+          <div class="card-body">
+            <h3 class="card-title text-center">What can you do?</h3>
+            <hr />
+            <div class="card-text">
+              <div class="row justify-content-center">
+                <p class="text-center">
+                  Click here to upload new certificates for verification
+                  <i class="fa fa-upload" aria-hidden="true"></i>
+                </p>
+                <button
+                  class="btn btn-outline-primary col-12"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#collapseUpload"
+                  aria-expanded="false"
+                  aria-controls="collapseUpload"
+                >
+                  Upload <i class="fa fa-upload" aria-hidden="true"></i>
+                </button>
+                <div class="collapse" id="collapseUpload">
+                  <div class="col-12">
+                    <form class="col-sm form">
+                      <div class="form-group">
+                        <label for="inputID">Muthoot ID</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="upladID"
+                          placeholder="ID card number"
+                        />
+                      </div>
+
+                      <div class="form-group">
+                        <label for="inputID">Select Certificate : </label>
+                        <input
+                          type="file"
+                          class="form-control"
+                          id="uploadCert"
+                        />
+                        <small id="nameHelp" class="form-text text-muted"
+                          >Upload your certificate in PDF format</small
+                        >
+                      </div>
+
+                      <button type="submit" class="btn btn-primary">
+                        Upload
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <div class="row justify-content-center">
+                <p class="text-center">
+                  Click here to check your points and certificate status
+                  <i class="fa fa-tasks" aria-hidden="true"></i>
+                </p>
+                <button
+                  class="btn btn-outline-primary col-12"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#collapseStatus"
+                  aria-expanded="false"
+                  aria-controls="collapseStatus"
+                >
+                  Check Status <i class="fa fa-tasks" aria-hidden="true"></i>
+                </button>
+                <div class="collapse" id="collapseStatus">
+                  <div class="col-12">
+                    <form class="col-sm form">
+                      <div class="form-group">
+                        <label for="inputID">Muthoot ID</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="uploadID"
+                          placeholder="ID card number"
+                        />
+                      </div>
+
+                      <button type="submit" class="btn btn-primary">
+                        Get Status in mail
+                      </button>
+                      <small id="nameHelp" class="form-text text-muted"
+                        >You'll get a link on your registered -email with the
+                        required details.</small
+                      >
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <div class="row justify-content-center">
+                <p class="text-center">
+                  Or, here to download your approved certificates
+                  <i class="fa fa-download" aria-hidden="true"></i>
+                </p>
+                <button
+                  class="btn btn-outline-primary col-12"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#collapseDownload"
+                  aria-expanded="false"
+                  aria-controls="collapseDownload"
+                >
+                  Download <i class="fa fa-download" aria-hidden="true"></i>
+                </button>
+                <div class="collapse" id="collapseDownload">
+                  <div class="col-12">
+                    <form class="col-12 form">
+                      <div class="form-group">
+                        <label for="inputID">Muthoot ID : </label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="upladID"
+                          placeholder="ID card number"
+                        />
+                      </div>
+                      <button type="submit" class="btn btn-primary">
+                        Get Download Link
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row col-12">
+        <p>
+          Feel like you need more features? <br />
+          Tell us
+          <a
+            href="mailto:thejuniordeveloper@mgits.ac.in?subject=New%20Feature%20Request%20Student"
+            >here</a
+          >
+        </p>
+      </div>
+      <script
+        src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"
+      ></script>
+      <script src="./js/bootstrap.min.js"></script>
+    </div>
+    <footer class="text-center">
+      <hr />
+      <p>NOpyright - <a>The Junior Developer</a></p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,87 @@
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 5px;
+  width: 80%;
+}
+
+.card-header {
+  text-align: center;
+  font-size: 30px;
+  padding: 10px;
+}
+
+.useroption {
+  align-items: center;
+  margin-top: 2%;
+}
+
+.forms {
+  align-items: center;
+}
+
+.label-style {
+  padding: 10px;
+  margin: 10px;
+}
+
+.field-style {
+  width: 70%;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  border-radius: 5px;
+}
+
+.button-style {
+  margin: 10px;
+}
+
+.wrapper {
+  justify-content: center;
+}
+
+.grey-text {
+  color: grey;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.card-content-wrapper {
+  margin: 5px;
+  padding: 5px;
+}
+
+.expansion-panel {
+  padding: 15px;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.radio-button {
+  margin: 5px;
+  white-space: normal !important;
+}
+
+.category-style {
+  margin-top: 10px;
+}
+
+.confirmation-style {
+  font-weight: bold;
+}
+
+.center {
+  width: 70%;
+  text-align: center;
+}
+
+.snackbar-style {
+  background: #1fcd98;
+  white-space: pre-line;
+}
