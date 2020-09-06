@@ -15,9 +15,11 @@ module.exports = {
       pool
         .getConnection()
         .then(function (connection) {
+          //console.log(connection);
           resolve(connection);
         })
         .catch(function (error) {
+          console.log(error);
           reject(error);
         });
     });

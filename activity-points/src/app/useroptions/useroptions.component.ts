@@ -4,10 +4,6 @@ import { Observable } from 'rxjs';
 import { map, startWith, catchError } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorsnackbarComponent } from '../errorsnackbar/errorsnackbar.component';
-
-import { HttpEventType, HttpErrorResponse } from '@angular/common/http';
-import { of } from 'rxjs';
-import { UploadCertificateService } from '../upload-certificate.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import {
@@ -25,9 +21,7 @@ import {
 export class UseroptionsComponent implements OnInit {
   @ViewChild('fileUpload', { static: false }) fileUpload: ElementRef;
   files = [];
-  // Note : This whole thing can be really shortened if we implement interfaces for the 6 broad categories
-  // of certificates (aka options as of now).
-  // I won't do it. I'm tired.
+
   cat12data: Cat12FinalData = { level: '', prize: 'N/A' };
   cat3data: Cat3FinalData = {
     specification: '',
@@ -111,39 +105,7 @@ export class UseroptionsComponent implements OnInit {
     private _snackBar2: MatSnackBar,
     private http: HttpClient //private uploadService: UploadCertificateService
   ) {}
-  // uploadFile(file) {
-  //   const formData = new FormData();
-  //   formData.append('file', file.data);
-  //   file.inProgress = true;
-  //   this.uploadService
-  //     .upload(formData)
-  //     .pipe(
-  //       map((event) => {
-  //         switch (event.type) {
-  //           case HttpEventType.UploadProgress:
-  //             file.progress = Math.round((event.loaded * 100) / event.total);
-  //             break;
-  //           case HttpEventType.Response:
-  //             return event;
-  //         }
-  //       }),
-  //       catchError((error: HttpErrorResponse) => {
-  //         file.inProgress = false;
-  //         return of(`${file.data.name} upload failed.`);
-  //       })
-  //     )
-  //     .subscribe((event: any) => {
-  //       if (typeof event === 'object') {
-  //         console.log(event.body);
-  //       }
-  //     });
-  // }
-  // private uploadFiles() {
-  //   this.fileUpload.nativeElement.value = '';
-  //   this.files.forEach((file) => {
-  //     this.uploadFile(file);
-  //   });
-  // }
+
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
@@ -155,9 +117,56 @@ export class UseroptionsComponent implements OnInit {
   logDetails() {
     this.elem = document.getElementById('finalDetails');
     this.uploadDetails = this.elem.innerText;
-    console.log(this.uploadDetails);
-    var a = JSON.parse(this.uploadDetails);
-    console.log(a);
+    console.log(this.uploadDetails, typeof this.uploadDetails);
+    var strippedDetails = this.uploadDetails.split(/\r?\n/);
+    console.log(strippedDetails);
+    var detailsasobject = [];
+    strippedDetails.forEach((element) =>
+      detailsasobject.push(element.split(':'))
+    );
+    console.log(detailsasobject);
+    this.assignDetailsForPost(detailsasobject);
+  }
+
+  assignDetailsForPost(details) {
+    var finalDetails = {
+      muthootID: 'N/A',
+      category: 'N/A',
+      filename: 'N/A',
+      level: 'N/A',
+      prize: 'N/A',
+      specification: 'N/A',
+      role: 'N/A',
+    };
+    for (var i = 0; i < details.length; i++) {
+      var type = details[i];
+      console.log(type);
+      switch (type[0]) {
+        case 'Muthoot ID ':
+          finalDetails.muthootID = type[1];
+          break;
+        case 'Category ':
+          finalDetails.category = type[1];
+          break;
+        case 'Certificate Name ':
+          finalDetails.filename = type[1];
+          break;
+        case 'Level ':
+          finalDetails.level = type[1];
+          break;
+        case 'Prize ':
+          finalDetails.prize = type[1];
+          break;
+        case 'Specification ':
+          finalDetails.specification = type[1];
+          break;
+        case 'Role ':
+          finalDetails.role = type[1];
+          break;
+      }
+    }
+    console.log(finalDetails);
+    this.postData(finalDetails);
   }
 
   clearSearch() {
@@ -188,6 +197,9 @@ export class UseroptionsComponent implements OnInit {
     if (this.category == '') {
       this.errorMessage.push('Category cannot be blank \n');
     }
+    if (this.fileName == '') {
+      this.errorMessage.push('File not uploaded');
+    }
 
     if (this.errorMessage.length > 1) {
       console.log('incomplete field');
@@ -212,7 +224,20 @@ export class UseroptionsComponent implements OnInit {
     );
   }
 
-  postData() {
-    this.http.post('http:localhost:8000/postData', this.uploadDetails);
+  postData(details) {
+    console.log(details);
+    // console.log(
+    //   this.http.get('http://localhost:8000/').subscribe((value: any) => {
+    //     console.log(value);
+    //   })
+    // );
+    console.log(
+      this.http
+        .post('http://localhost:8000/addrequest', details)
+        .subscribe((value: any) => {
+          console.log(value);
+        })
+    );
+    location.reload();
   }
 }
