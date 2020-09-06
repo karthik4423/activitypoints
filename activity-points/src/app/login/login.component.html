@@ -1,0 +1,34 @@
+<app-header></app-header>
+<div>
+  <mat-card class="card"
+    ><h1 class="card-header">Faculty Login</h1>
+    <mat-card-content class="card-content-wrapper">
+      <div class="forms">
+        <label class="label-style">Faculty ID : </label>
+        <input
+          type="text"
+          class="field-style"
+          [(ngModel)]="loginData.facultyID"
+          (change)="upperCase()"
+        />
+        <br />
+        <label class="label-style">Password : </label>
+        <input
+          type="password"
+          class="field-style"
+          [(ngModel)]="loginData.facultyPassword"
+        />
+        <br />
+        <button
+          mat-raised-button
+          color="primary"
+          class="button-style"
+          (click)="onClick()"
+        >
+          Log In
+        </button>
+      </div>
+      {{ message }}
+    </mat-card-content></mat-card
+  >
+</div>

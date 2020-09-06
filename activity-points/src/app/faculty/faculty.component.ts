@@ -7,11 +7,15 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   styleUrls: ['./faculty.component.css'],
 })
 export class FacultyComponent implements OnInit {
+  facultyID: String = '';
   constructor(private http: HttpClient) {
     this.http.get('http://localhost:8000/docs').subscribe((value: any) => {
       this.pendingRequests = value;
       console.log(this.pendingRequests);
     });
+  }
+  upperCase() {
+    this.facultyID = this.facultyID.toUpperCase();
   }
 
   pendingRequests: any;

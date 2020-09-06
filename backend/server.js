@@ -112,22 +112,38 @@ app.post("/addrequest", async function (req, res) {
   }
 });
 
-// var storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "./public/uploads");
-//   },
-//   filename: (req, file, cb) => {
-//     cb(
-//       null,
-//       file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-//     );
-//   },
-// });
-// //will be using this for uplading
-// const upload = multer({ storage: storage });
+app.get("/login", async function (req, res) {
+  console.log("in login", req.query);
+  //res.send("hello world");
+  let conn;
+  try {
+    // establish a connection to MariaDB
+    conn = await pool.getConnection();
+    addquery =
+      'insert into student_details values("16CS028","Random Raj","2016-2020",0,"randomraj4423@gmail.com","Computer Science and Engineering")';
+    // create a new query
+    var query =
+      'select * from faculty_details where MuthootID = "' +
+      req.query.facultyID +
+      '" and Password = "' +
+      req.query.password +
+      '"';
+    //conn.query(addquery);
+    // execute the query and set the result to a new variable
+    var rows = await conn.query(query);
+    //console.log(rows);
+    // if (rows.length < 1) {
+    //   res.send("fail");
+    // } else {
+    //   res.send("success");
+    // }
 
-// app.post("/testUpload", upload.single("file"), function (req, res) {
-//   debug(req.file);
-//   console.log("storage location is ", req.hostname + "/" + req.file.path);
-//   return res.send(req.file);
-// });
+    // return the results
+    res.send(rows);
+  } catch (err) {
+    console.log(err);
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+});
