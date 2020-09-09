@@ -1,6 +1,7 @@
 <app-header> </app-header>
 <div class="container" fxLayout="column" fxLayoutGap="32px">
   <p>Howdy, {{ facultyName }}</p>
+  <button (click)="onClick()">ref</button>
   <mat-card class="card"
     ><h1 class="card-header">Pending Requests</h1>
     <mat-card-content class="card-content-wrapper">
@@ -8,7 +9,7 @@
         <mat-card class="card">
           <p>{{ req.name }}</p>
           <mat-card-content class="card-content-wrapper">
-            {{ req.id }}
+            {{ req.Category }}
             {{ req.category }}
             {{ req.certificate }}
             {{ req.currentpoints }}

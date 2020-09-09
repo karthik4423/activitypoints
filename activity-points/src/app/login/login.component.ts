@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
       this.loginData.facultyPassword
     );
     this.http
-      .get('http://localhost:8000/login', {
+      .get('http://192.168.1.12:8000/login', {
         params: {
           facultyID: this.loginData.facultyID,
           password: this.loginData.facultyPassword,

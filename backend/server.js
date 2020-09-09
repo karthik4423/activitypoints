@@ -75,9 +75,36 @@ app.get("/", async function (req, res) {
 
 const randomfile = require("./random.js");
 //console.log(randomfile);
-app.get("/docs", function (req, res) {
+app.get("/fetchdetails/:id", async function (req, res) {
   console.log("docs works");
-  res.send(randomfile);
+  var id = req.params.id;
+  console.log(id);
+
+  //res.send(randomfile);
+  let conn;
+  try {
+    // establish a connection to MariaDB
+    conn = await pool.getConnection();
+    // addquery =
+    //   'insert into student_details values("16CS028","Random Raj","2016-2020",0,"randomraj4423@gmail.com","Computer Science and Engineering")';
+    // create a new query
+    var query = 'select * from requests where req_to = "' + id + '"';
+    //conn.query(addquery);
+    // execute the query and set the result to a new variable
+    var rows = await conn.query(query);
+    if (rows.length < 1) {
+      console.log("zero");
+    }
+    console.log(rows);
+
+    // return the results
+    res.send(rows);
+  } catch (err) {
+    console.log(err);
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
 });
 
 app.post("/addrequest", async function (req, res) {
@@ -139,6 +166,7 @@ app.get("/login", async function (req, res) {
     // }
 
     // return the results
+    console.log(rows, rows.length);
     res.send(rows);
   } catch (err) {
     console.log(err);

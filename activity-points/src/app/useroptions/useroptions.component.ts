@@ -233,7 +233,7 @@ export class UseroptionsComponent implements OnInit {
     // );
     console.log(
       this.http
-        .post('http://localhost:8000/addrequest', details)
+        .post('http://192.168.1.12:8000/addrequest', details)
         .subscribe((value: any) => {
           console.log(value);
         })

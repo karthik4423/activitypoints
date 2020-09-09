@@ -14,6 +14,7 @@ export class FacultyComponent implements OnInit {
   contextAvailable: boolean;
   context: any = {};
   facultyName: string = '';
+  url: string = '';
 
   constructor(
     private http: HttpClient,
@@ -23,20 +24,26 @@ export class FacultyComponent implements OnInit {
   ) {
     this.data.currentMessage.subscribe((message) => (this.context = message));
     console.log(this.context);
-    console.log(this.contextAvailable);
     this.contextAvailable = this.context.isLoggedIn;
     this.facultyName = this.context.facultyName;
+    this.facultyID = this.context.facultyID;
     if (!this.contextAvailable) {
       this.router.navigate(['/home']);
       this._snackBar1.open('Entry Unauthorized', '', {
         duration: 2000,
       });
     } else {
-      this.http.get('http://localhost:8000/docs').subscribe((value: any) => {
-        this.pendingRequests = value;
-        console.log(this.pendingRequests);
-      });
+      this.getData();
     }
+  }
+  getData() {
+    this.url = `http://192.168.1.12:8000/fetchdetails/${this.facultyID}`;
+    console.log(this.url);
+    this.http.get(this.url).subscribe((value) => {
+      console.log('in resposne', value);
+      this.pendingRequests = value;
+      console.log(this.pendingRequests, this.pendingRequests[0].Category);
+    });
   }
   upperCase() {
     this.facultyID = this.facultyID.toUpperCase();
@@ -47,5 +54,8 @@ export class FacultyComponent implements OnInit {
     console.log('in init facutlty');
     this.data.currentMessage.subscribe((message) => (this.context = message));
     console.log(this.context);
+  }
+  onClick() {
+    this.getData();
   }
 }
