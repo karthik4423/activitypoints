@@ -96,6 +96,7 @@ app.get("/fetchdetails/:id", async function (req, res) {
       console.log("zero");
     }
     console.log(rows);
+    // var namequery='select Name from student_details where '
 
     // return the results
     res.send(rows);
@@ -114,6 +115,7 @@ app.post("/addrequest", async function (req, res) {
   let conn;
   try {
     // establish a connection to MariaDB
+
     conn = await pool.getConnection();
     getFacultyQuery =
       'select AdvisorCode from student_details where MuthootID = "' +

@@ -1,18 +1,32 @@
 <app-header> </app-header>
 <div class="container" fxLayout="column" fxLayoutGap="32px">
-  <p>Howdy, {{ facultyName }}</p>
-  <button (click)="onClick()">ref</button>
+  <h2>Welcome, {{ facultyName }}</h2>
+  <button mat-raised-button color="primary" (click)="onClick()">Refresh</button>
   <mat-card class="card"
     ><h1 class="card-header">Pending Requests</h1>
     <mat-card-content class="card-content-wrapper">
       <div *ngFor="let req of pendingRequests">
         <mat-card class="card">
-          <p>{{ req.name }}</p>
+          <p>{{ req.req_from }}</p>
           <mat-card-content class="card-content-wrapper">
+            certificate Category :
             {{ req.Category }}
-            {{ req.category }}
-            {{ req.certificate }}
-            {{ req.currentpoints }}
+            <div *ngIf="req.Specification != 'N/A'">
+              Specification :
+              {{ req.Specification }}
+            </div>
+            <div *ngIf="req.Level != 'N/A'">
+              Level :
+              {{ req.Level }}
+            </div>
+            <div *ngIf="req.Prize != 'N/A'">
+              Prize :
+              {{ req.Prize }}
+            </div>
+            <div *ngIf="req.Role != 'N/A'">
+              Role :
+              {{ req.Role }}
+            </div>
           </mat-card-content>
         </mat-card>
       </div>
