@@ -11,11 +11,13 @@ import { HeaderComponent } from './header/header.component';
 import { UseroptionsComponent } from './useroptions/useroptions.component';
 import { ErrorsnackbarComponent } from './errorsnackbar/errorsnackbar.component';
 import { FacultyComponent } from './faculty/faculty.component';
+import { CertificateComponent } from './certificate/certificate.component';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 //import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -34,12 +36,14 @@ import { LoginComponent } from './login/login.component';
     ErrorsnackbarComponent,
     FacultyComponent,
     LoginComponent,
+    CertificateComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
+    MatTooltipModule,
     //MatGridListModule,
     MatCardModule,
     MatExpansionModule,

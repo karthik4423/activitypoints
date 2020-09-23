@@ -1,0 +1,66 @@
+<div class="request" fxLayout="column" fxLayoutGap="32px">
+  <mat-card class="card request" fxLayout="column" fxLayoutGap="20px">
+    <p>{{ req.req_from }}</p>
+    <mat-card-content class="card-content-wrapper">
+      <b>Certificate Category :</b>
+      {{ req.Category }}
+      <div *ngIf="req.Specification != 'N/A'">
+        <b>Specification :</b>
+        {{ req.Specification }}
+      </div>
+      <div *ngIf="req.Level != 'N/A'">
+        <b>Level :</b>
+        {{ req.Level }}
+      </div>
+      <div *ngIf="req.Prize != 'N/A'">
+        <b>Prize :</b>
+        {{ req.Prize }}
+      </div>
+      <div *ngIf="req.Role != 'N/A'">
+        <b>Role :</b>
+        {{ req.Role }}
+      </div>
+    </mat-card-content>
+    <div>
+      <button
+        mat-icon-button
+        matTooltip="Show Certificate"
+        [matTooltipShowDelay]="100"
+        [matTooltipHideDelay]="750"
+        color="primary"
+        class="button-style"
+        (click)="showCertificate()"
+      >
+        <mat-icon aria-hidden="false" aria-label="certificate"
+          >assignment</mat-icon
+        >
+      </button>
+      <button
+        mat-icon-button
+        matTooltip="Approve Certificate"
+        [matTooltipShowDelay]="100"
+        [matTooltipHideDelay]="750"
+        color="success"
+        class="button-style"
+        (click)="approve()"
+      >
+        <mat-icon aria-hidden="false" aria-label="Approve Button"
+          >thumb_up</mat-icon
+        >
+      </button>
+      <button
+        mat-icon-button
+        matTooltip="Reject Certificate"
+        [matTooltipShowDelay]="100"
+        [matTooltipHideDelay]="750"
+        color="warn"
+        class="button-style"
+        (click)="reject()"
+      >
+        <mat-icon aria-hidden="false" aria-label="Reject Button"
+          >thumb_down</mat-icon
+        >
+      </button>
+    </div>
+  </mat-card>
+</div>

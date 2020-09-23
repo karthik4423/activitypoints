@@ -1,11 +1,3 @@
-.container {
-  align-items: center;
-}
-
-#facultyLogin {
-  visibility: hidden;
-}
-
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   margin: 5px;
@@ -23,6 +15,14 @@
   padding: 5px;
 }
 
-.requests {
+.mat-success {
+  color: #22863a;
+}
+
+.button-style {
+  margin: 10px;
+}
+
+.request {
   align-items: center;
 }

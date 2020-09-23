@@ -55,11 +55,11 @@ app.get("/", async function (req, res) {
   try {
     // establish a connection to MariaDB
     conn = await pool.getConnection();
-    addquery =
-      'insert into student_details values("16CS028","Random Raj","2016-2020",0,"randomraj4423@gmail.com","Computer Science and Engineering")';
+    //addquery =
+    ('insert into student_details values("16CS028","Random Raj","2016-2020",0,"randomraj4423@gmail.com","Computer Science and Engineering")');
     // create a new query
     var query = "select * from student_details";
-    conn.query(addquery);
+    //conn.query(addquery);
     // execute the query and set the result to a new variable
     var rows = await conn.query(query);
 
@@ -73,7 +73,6 @@ app.get("/", async function (req, res) {
   }
 });
 
-const randomfile = require("./random.js");
 //console.log(randomfile);
 app.get("/fetchdetails/:id", async function (req, res) {
   console.log("docs works");
@@ -88,7 +87,8 @@ app.get("/fetchdetails/:id", async function (req, res) {
     // addquery =
     //   'insert into student_details values("16CS028","Random Raj","2016-2020",0,"randomraj4423@gmail.com","Computer Science and Engineering")';
     // create a new query
-    var query = 'select * from requests where req_to = "' + id + '"';
+    var query =
+      'select * from requests where req_to = "' + id + '" and Status = 0';
     //conn.query(addquery);
     // execute the query and set the result to a new variable
     var rows = await conn.query(query);
@@ -111,6 +111,7 @@ app.get("/fetchdetails/:id", async function (req, res) {
 app.post("/addrequest", async function (req, res) {
   // console.log(params);
   console.log(req.body);
+  console.log("new request recieved");
   var faculty_number = "";
   let conn;
   try {
@@ -124,7 +125,7 @@ app.post("/addrequest", async function (req, res) {
     console.log(getFacultyQuery);
     faculty_number = await conn.query(getFacultyQuery);
     console.log("fcode", faculty_number[0].AdvisorCode);
-    addquery = `insert into requests values("${req.body.muthootID.trim()}","${faculty_number[0].AdvisorCode.trim()}","${req.body.category.trim()}","${req.body.specification.trim()}","${req.body.level.trim()}","${req.body.prize.trim()}","${req.body.role.trim()}","${req.body.filename.trim()}",NOW())`;
+    addquery = `insert into requests values("${req.body.muthootID.trim()}","${faculty_number[0].AdvisorCode.trim()}","${req.body.category.trim()}","${req.body.specification.trim()}","${req.body.level.trim()}","${req.body.prize.trim()}","${req.body.role.trim()}","${req.body.filename.trim()}",NOW(),0)`;
     // create a new query
     //var query = "select * from student_details";
     await conn.query(addquery);

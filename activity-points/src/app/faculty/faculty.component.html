@@ -5,8 +5,14 @@
   <mat-card class="card"
     ><h1 class="card-header">Pending Requests</h1>
     <mat-card-content class="card-content-wrapper">
-      <div *ngFor="let req of pendingRequests">
-        <mat-card class="card">
+      <div
+        *ngFor="let req of pendingRequests"
+        class="reqests"
+        fxLayout="column"
+        fxLayoutGap="32px"
+      >
+        <app-certificate [req]="req"></app-certificate>
+        <!-- <mat-card class="card">
           <p>{{ req.req_from }}</p>
           <mat-card-content class="card-content-wrapper">
             certificate Category :
@@ -28,7 +34,7 @@
               {{ req.Role }}
             </div>
           </mat-card-content>
-        </mat-card>
+        </mat-card> -->
       </div>
     </mat-card-content></mat-card
   >
